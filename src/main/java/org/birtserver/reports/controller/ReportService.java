@@ -56,7 +56,7 @@ public class ReportService implements IReportService {
 				templatesPath);
 	}
 
-	@RequestMapping(value = "/report", method = RequestMethod.GET, headers = "Accept=application/xml, application/json")
+	@RequestMapping(value = "report", method = RequestMethod.GET, headers = "Accept=application/xml, application/json")
 	@ResponseBody
 	public ResponseEntity<byte[]> renderReport(@RequestParam String template,
 			@RequestParam(required = false) String locale,
