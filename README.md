@@ -1,12 +1,12 @@
-birt-standalone
+BIRT-STANDALONE
 ===============
 
-A simple web servlet which serves reports rendered by BIRT engine.
+- A simple web servlet which serves reports rendered by BIRT engine.
 
 How to
 ===============
 
-Clone/Download the project. Build it with Maven and the necessary war file with 
+- Clone/Download the project. Build it with Maven and the necessary war file with 
 dependencies will be created.
 
 First steps
@@ -21,5 +21,5 @@ browser. You'll see the report displayed.
 Project details
 ===============
 
--This project is open source and everyone is invited to colaborate in it. New 
+- This project is open source and everyone is invited to colaborate in it. New 
 commiters will be welcomed.
