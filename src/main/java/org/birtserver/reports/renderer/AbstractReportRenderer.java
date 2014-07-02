@@ -31,29 +31,29 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.PdfCopy;
 import com.itextpdf.text.pdf.PdfReader;
 
+/**
+ * Class for report rendering
+ * 
+ * @author Aritz
+ *
+ */
 public abstract class AbstractReportRenderer {
 
 	private final Log logger = LogFactory.getLog(this.getClass());
 
-	private String _DataUrl;
-
-	private String _UserName;
-
-	private String _UserPassword;
-
-	public abstract String get_RootDirectoryPath();
+	public abstract String getRootDirectoryPath();
 
 	public static enum ReportFileType {
 		PDF("pdf"), XLS("xls");
 
-		private String _TypeValue;
+		private String typeValue;
 
-		public String get_TypeValue() {
-			return this._TypeValue;
+		public String getTypeValue() {
+			return this.typeValue;
 		}
 
 		private ReportFileType(String typeValue) {
-			this._TypeValue = typeValue;
+			this.typeValue = typeValue;
 		}
 	}
 
@@ -61,16 +61,14 @@ public abstract class AbstractReportRenderer {
 			Map<String, Object> reportParams, Locale locale,
 			OutputStream outputStream, ReportFileType reportFileType)
 			throws EngineException {
-		this.logger
-				.info("Generando report con la plantilla de report localizada en "
-						+ this.get_RootDirectoryPath() + reportPath.get_Path());
+		this.logger.info("Generating report with template in "
+				+ this.getRootDirectoryPath() + reportPath.getPath());
 		try {
-			// IReportRunnable runnable = null;
 			ReportEngine engine = new ReportEngine(new EngineConfig());
 
-			// opend design document
+			// open design document
 			IReportRunnable runnable = engine.openReportDesign(this
-					.get_RootDirectoryPath() + reportPath.get_Path());
+					.getRootDirectoryPath() + reportPath.getPath());
 
 			IRunAndRenderTask task = engine.createRunAndRenderTask(runnable);
 
@@ -78,23 +76,19 @@ public abstract class AbstractReportRenderer {
 				task.setParameterValue(ent.getKey(), ent.getValue());
 			}
 
-			task.setParameterValue("data_url", this._DataUrl);
-			task.setParameterValue("user_name", this._UserName);
-			task.setParameterValue("user_password", this._UserPassword);
-
 			task.setLocale(locale);
 
 			if (reportFileType == ReportFileType.XLS) {
 				final EXCELRenderOption options = new EXCELRenderOption();
 
-				options.setOutputFormat(reportFileType.get_TypeValue());
+				options.setOutputFormat(reportFileType.getTypeValue());
 				options.setOutputStream(outputStream);
 
 				task.setRenderOption(options);
 			} else {
 				final IRenderOption options = new RenderOption();
 
-				options.setOutputFormat(reportFileType.get_TypeValue());
+				options.setOutputFormat(reportFileType.getTypeValue());
 				options.setOutputStream(outputStream);
 
 				task.setRenderOption(options);
@@ -153,20 +147,8 @@ public abstract class AbstractReportRenderer {
 
 	}
 
-	public void set_DataUrl(String _DataUrl) {
-		this._DataUrl = _DataUrl;
-	}
-
-	public void set_UserName(String _UserName) {
-		this._UserName = _UserName;
-	}
-
-	public void set_UserPassword(String _UserPassword) {
-		this._UserPassword = _UserPassword;
-	}
-
 	/**
-	 * Procesa varias entradas de report y las devuelve en un �nico pdf
+	 * Processes some report entries returning them in a single pdf file
 	 * 
 	 * @param reportPath
 	 * @param reportParams
@@ -183,9 +165,9 @@ public abstract class AbstractReportRenderer {
 			throws Exception {
 
 		if (reportParams.size() == 1) {
-			renderReport(reportParams.get(0).get_ReportPath(), reportParams
-					.get(0).get_ReportParams(), reportParams.get(0)
-					.get_Locale(), outputStream, reportFileType);
+			renderReport(reportParams.get(0).getReportPath(),
+					reportParams.get(0).getReportParams(), reportParams.get(0)
+							.getLocale(), outputStream, reportFileType);
 		} else if (reportParams.size() > 1) {
 
 			Map<String, InputStream> streamMap = new HashMap<String, InputStream>();
@@ -193,14 +175,14 @@ public abstract class AbstractReportRenderer {
 			for (ReportInput reportEntry : reportParams) {
 
 				ByteArrayOutputStream output = new ByteArrayOutputStream();
-				renderReport(reportEntry.get_ReportPath(),
-						reportEntry.get_ReportParams(),
-						reportEntry.get_Locale(), output, reportFileType);
+				renderReport(reportEntry.getReportPath(),
+						reportEntry.getReportParams(), reportEntry.getLocale(),
+						output, reportFileType);
 
 				if (reportEntry instanceof XlsReportInput) {
 					XlsReportInput xls = (XlsReportInput) reportEntry;
-					streamMap.put(xls.get_NameSheet(),
-							new ByteArrayInputStream(output.toByteArray()));
+					streamMap.put(xls.getNameSheet(), new ByteArrayInputStream(
+							output.toByteArray()));
 					streamList.add(new ByteArrayInputStream(output
 							.toByteArray()));
 				} else {

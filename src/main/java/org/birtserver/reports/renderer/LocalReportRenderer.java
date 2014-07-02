@@ -5,15 +5,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class LocalReportRenderer extends AbstractReportRenderer {
 
-	private String _RepositoryReports;
+	private String repositoryReports;
 
-	public void set_RepositoryReports(String _RepositoryReports) {
-		this._RepositoryReports = _RepositoryReports;
+	public void setRepositoryReports(String repositoryReports) {
+		this.repositoryReports = repositoryReports;
 	}
 
 	@Override
-	public String get_RootDirectoryPath() {
-		return this._RepositoryReports;
+	public String getRootDirectoryPath() {
+		return this.repositoryReports;
 	}
 
 }

@@ -33,19 +33,27 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class ReportService implements IReportService {
 
 	@Autowired
-	private LocalReportRenderer _ReportRenderer;
+	private LocalReportRenderer reportRenderer;
 
-	private Logger _Logger = LoggerFactory.getLogger(ReportService.class);
+	private Logger logger = LoggerFactory.getLogger(ReportService.class);
 
-	private String _TemplatesPath = "/home/birtserver/templates/";
+	/**
+	 * This directory will be the root for the report templates in the server
+	 */
+	private String templatesPath = "/home/birtserver/templates/";
+
+	@Override
+	public String getTemplatesPath() {
+		return templatesPath;
+	}
 
 	@PostConstruct
 	public void postConstruct() {
-		new File(_TemplatesPath).mkdirs();
-		_ReportRenderer.set_RepositoryReports(_TemplatesPath);
-		_Logger.info(
+		new File(templatesPath).mkdirs();
+		reportRenderer.setRepositoryReports(templatesPath);
+		logger.info(
 				"{} folder has been stabished as BIRT template source directory",
-				_TemplatesPath);
+				templatesPath);
 	}
 
 	@RequestMapping(value = "/report", method = RequestMethod.GET, headers = "Accept=application/xml, application/json")
@@ -70,7 +78,7 @@ public class ReportService implements IReportService {
 		inputList.add(new GenericReportInput(new ReportPath(template
 				+ ".rptdesign"), params, new Locale(locale)));
 		ReportFileType outputFileType = ReportFileType.valueOf(outputType);
-		this._ReportRenderer.render(inputList, stream, outputFileType);
+		this.reportRenderer.render(inputList, stream, outputFileType);
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.parseMediaType(outputFileType
 				.equals(ReportFileType.PDF) ? "application/pdf"
@@ -80,12 +88,7 @@ public class ReportService implements IReportService {
 	}
 
 	@Override
-	public String get_TemplatesPath() {
-		return _TemplatesPath;
-	}
-
-	@Override
-	public void set_TemplatesPath(String path) {
-		_TemplatesPath = path;
+	public void setTemplatesPath(String path) {
+		templatesPath = path;
 	}
 }

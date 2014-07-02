@@ -4,7 +4,7 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
- * Establece los parametros de entrada para procesar un report concreto
+ * Parameters for a report to be rendered
  * 
  * @author amaeztu
  * @since 1.0
@@ -12,40 +12,41 @@ import java.util.Map;
  */
 public abstract class ReportInput {
 
-	private ReportPath _ReportPath;
+	private ReportPath reportPath;
 
-	private Map<String, Object> _ReportParams;
+	private Map<String, Object> reportParams;
 
-	private Locale _Locale;
-	
-	public ReportInput(ReportPath reportPath, Map<String, Object> reportParams, Locale locale) {
-		this._ReportPath = reportPath;
-		this._ReportParams = reportParams;
-		this._Locale = locale;
+	private Locale locale;
+
+	public ReportInput(ReportPath reportPath, Map<String, Object> reportParams,
+			Locale locale) {
+		this.reportPath = reportPath;
+		this.reportParams = reportParams;
+		this.locale = locale;
 	}
 
-	public Map<String, Object> get_ReportParams() {
-		return this._ReportParams;
+	public Map<String, Object> getReportParams() {
+		return this.reportParams;
 	}
 
-	public ReportPath get_ReportPath() {
-		return this._ReportPath;
+	public ReportPath getReportPath() {
+		return this.reportPath;
 	}
 
-	public void set_ReportParams(Map<String, Object> _ReportParams) {
-		this._ReportParams = _ReportParams;
+	public void setReportParams(Map<String, Object> reportParams) {
+		this.reportParams = reportParams;
 	}
 
-	public void set_ReportPath(ReportPath _ReportPath) {
-		this._ReportPath = _ReportPath;
+	public void setReportPath(ReportPath reportPath) {
+		this.reportPath = reportPath;
 	}
 
-	public Locale get_Locale() {
-		return _Locale;
+	public Locale getLocale() {
+		return locale;
 	}
 
-	public void set_Locale(Locale _Locale) {
-		this._Locale = _Locale;
+	public void setLocale(Locale locale) {
+		this.locale = locale;
 	}
 
 }

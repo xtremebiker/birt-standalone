@@ -2,15 +2,15 @@ package org.birtserver.reports.renderer;
 
 public class ReportPath {
 
-	private String _Path;
+	private String path;
 
 	public ReportPath(String path)
 	{
-		this._Path = path;
+		this.path = path;
 	}
 
-	public String get_Path() {
-		return this._Path;
+	public String getPath() {
+		return this.path;
 	}
 
 }

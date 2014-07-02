@@ -2,8 +2,8 @@ package org.birtserver.reports.controller;
 
 public interface IReportService {
 
-	public String get_TemplatesPath();
+	public String getTemplatesPath();
 
-	public void set_TemplatesPath(String path);
+	public void setTemplatesPath(String path);
 
 }

@@ -11,10 +11,10 @@ import org.springframework.stereotype.Component;
 public class ViewController {
 
 	@Inject
-	private IReportService _ReportService;
+	private IReportService reportService;
 
-	public String get_TemplatesPath() {
-		return _ReportService.get_TemplatesPath();
+	public String getTemplatesPath() {
+		return reportService.getTemplatesPath();
 	}
 
 }
