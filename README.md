@@ -12,8 +12,7 @@ dependencies will be created.
 1. The default template path is set to /home/birtserver/templates/. There's a simple 
 test template included in the project (in WEB-INF), just copy it to that folder.
 
-2. Type *{deployUrl}/service/report?template=test_report&param1=Hello world* in your
-browser. You'll see the report displayed.
+2. Navigate to *{deployUrl}* in your browser. You'll see the test report displayed.
 
 ## Project details
 
