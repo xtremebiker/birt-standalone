@@ -3,7 +3,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
 	<title>BIRT Standalone</title>
@@ -13,43 +14,47 @@
 
 	<h:outputStylesheet library="css" name="styles.css" />
 
-	<h2>A simple web servlet which serves reports powered by BIRT
-		engine</h2>
+	<p:panel>
 
-	<h:messages />
+		<f:facet name="header">
+			A simple web servlet which serves reports powered by BIRT engine
+		</f:facet>
 
-	<ul>
-		<li>Report templates path: #{viewController.templatesPath}</li>
-	</ul>
+		<p>
+			Report templates path: <b>#{viewController.templatesPath}</b>
+		</p>
 
-	<h:form>
-		<h:panelGrid columns="2">
-			<h:outputLabel value="Report Template" />
-			<h:inputText value="#{viewController.reportTemplate}" required="true" />
-		</h:panelGrid>
-		<h:commandButton value="Add Parameter"
-			action="#{viewController.addParameter}">
-			<f:ajax render="@form" />
-		</h:commandButton>
-		<h:panelGrid columns="3">
-			<c:forEach var="urlParam" items="#{viewController.urlParams}">
-				<h:inputText value="#{urlParam.name}" required="true"
-					pt:placeholder="Param name" />
-				<h:inputText value="#{urlParam.value}" required="true"
-					pt:placeholder="Param value" />
-				<h:commandButton value="Remove"
-					action="#{viewController.removeParameter(urlParam)}">
-					<f:ajax render="@form" />
-				</h:commandButton>
-			</c:forEach>
-		</h:panelGrid>
-		<h:commandButton value="Render"
-			action="#{viewController.renderReportFrame}" />
-		<a href="#{viewController.reportUrl}" target="_blank">Go to report</a>
-	</h:form>
+		<h:form>
+			<p:messages id="messages" autoUpdate="true" closable="true" />
+			<h:panelGrid columns="2">
+				<h:outputLabel value="Report Template" />
+				<p:inputText value="#{viewController.reportTemplate}"
+					required="true" />
+			</h:panelGrid>
+			<p:commandButton value="Add Parameter"
+				action="#{viewController.addParameter}" update="@form"
+				immediate="true" />
+			<h:panelGrid columns="3">
+				<c:forEach var="urlParam" items="#{viewController.urlParams}">
+					<p:inputText value="#{urlParam.name}" required="true"
+						pt:placeholder="Param name" />
+					<p:inputText value="#{urlParam.value}" required="true"
+						pt:placeholder="Param value" />
+					<p:commandButton value="Remove"
+						action="#{viewController.removeParameter(urlParam)}"
+						update="@form" immediate="true" />
+				</c:forEach>
+			</h:panelGrid>
+			<p:commandButton value="Render"
+				action="#{viewController.renderReportFrame}" ajax="false" />
+			<a href="#{viewController.reportUrl}" target="_blank">Go to
+				report</a>
+		</h:form>
 
-	<iframe src="#{viewController.reportUrl}" width="95%" height="60%" />
+		<iframe src="#{viewController.reportUrl}" width="95%" height="60%" />
 
+		<p>BIRT Engine Version: ${birt.version}</p>
+	</p:panel>
 
 </h:body>
 

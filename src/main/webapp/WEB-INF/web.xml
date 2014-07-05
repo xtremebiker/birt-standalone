@@ -16,6 +16,11 @@
 		org.springframework.web.context.request.RequestContextListener
 	</listener-class>
   </listener>
+  
+     <context-param> 
+      <param-name>primefaces.THEME</param-name> 
+      <param-value>cupertino</param-value> 
+    </context-param>  
 
 	<servlet>
 		<servlet-name>REST Servlet</servlet-name>
@@ -46,5 +51,6 @@
 	<welcome-file-list>
 		<welcome-file>index.xhtml</welcome-file>
 	</welcome-file-list>
+	
 
 </web-app>
