@@ -1,4 +1,4 @@
-# Birt Standalone
+# Birt Standalone for microservice
 
 A simple web servlet which serves reports powered by [BIRT engine](http://www.eclipse.org/birt/).
 
